@@ -1,13 +1,14 @@
 <template>
   <div class="theatre">
-    <!-- <ul class="seats-group" v-for="seatsGroup in seatsGroups">
+    <ul class="seats-group" v-for="seatsGroup in seatsGroups.seats" :key="seatsGroup.id">
       <li class="seat-preview"></li>
-    </ul> -->
+    </ul>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+// import {utilService} from '@/services/util.service'
 
 export default {
   name: 'theatre',
