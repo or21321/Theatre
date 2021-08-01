@@ -1,14 +1,25 @@
 <template>
-  <div class="board">
-    <ul class="seats-row" v-for="(seatsRow, idx) in board" :key="idx">
-      <li class="seat-col" v-for="seatCol in seatsRow" :key="seatCol.id">
-        <span :class="{ black: seatCol.status === 4 }">
-          <span class="material-icons" @click="confirmPopup(seatCol)"
-            >event_seat</span
-          ></span
+  <main>
+    <div class="board">
+      <ul class="seats-row" v-for="(seatsRow, idx) in board" :key="idx">
+        <li
+          class="seat-col"
+          v-for="seatCol in seatsRow"
+          :key="seatCol.id"
+          @click="setStauts(seatCol)"
         >
-      </li>
-    </ul>
+          <span
+            :class="{
+              black: seatCol.status === 4,
+              select: seatCol.status === 3,
+              unAvailable: seatCol.status === 2,
+            }"
+          >
+            <span class="material-icons">event_seat</span></span
+          >
+        </li>
+      </ul>
+    </div>
 
     <div class="confirm-popup" v-if="currSeat">
       <div class="header">
@@ -24,11 +35,33 @@
 
       <button class="checkout-btn" @click="order(currSeat)">Order</button>
     </div>
-  </div>
+
+    <div class="info">
+      <section class="available-seat">
+        <span class="available">
+          <span class="material-icons">event_seat</span></span
+        >
+        <span>Available seat</span>
+      </section>
+      <section class="reserved-seat">
+        <span class="unAvailable">
+          <span class="material-icons">event_seat</span></span
+        >
+        <span>Reserved seat</span>
+      </section>
+      <section class="select-seat">
+        <span class="select">
+          <span class="material-icons">event_seat</span></span
+        >
+        <span>Select seat</span>
+      </section>
+    </div>
+  </main>
 </template>
 
 <script>
-import { utilService } from "@/services/util.service.js";
+// @ is an alias to /src
+import { boardService } from "@/services/board.service.js";
 
 export default {
   name: "theatre",
@@ -40,49 +73,26 @@ export default {
     };
   },
   created() {
-    this.board = this.setBoard();
+    this.board = boardService.query();
   },
   methods: {
-   order(seat) {
-      console.log('order()', seat);
-   },
-   close() {
-      this.currSeat = null
-   },
-    confirmPopup(seat) {
-      console.log("confirmPopup()", seat);
+    close() {
+      this.currSeat = null;
+    },
+    setStauts(seat) {
+      this.board.forEach((sitsRow) => {
+        sitsRow.forEach((sit) => {
+          if (sit.status === 3) sit.status = 1;
+        });
+      });
+      if (seat.status !== 1) return;
+      console.log("setPopup()", seat);
       this.currSeat = seat;
+      seat.status = 3;
     },
-    setBoard() {
-      // const sitRows = [];
-      const sitCols = 9;
-      const board = [];
-      for (var i = 0; i < 28; i++) {
-        const sitRow = [];
-        for (var j = 0; j < sitCols; j++) {
-          if (i === 7 || i === 20) {
-            sitRow.push(this.emptySit(i, j));
-            continue;
-          }
-          sitRow.push({
-            id: utilService.makeId(),
-            status: 1,
-            x: j,
-            y: i,
-            price: "15$",
-          });
-        }
-        board.push(sitRow);
-      }
-      return board;
-    },
-    emptySit(i, j) {
-      return {
-        id: utilService.makeId(),
-        status: 4,
-        x: j,
-        y: i,
-      };
+    order(seat) {
+      seat.status = 2;
+      boardService.save(this.board);
     },
   },
 };

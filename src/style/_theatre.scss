@@ -1,45 +1,104 @@
 @import "@/style/_base";
-
-.board {
-    width: 90%;
-    height: 50%;
-    background-color: black;
-    margin: 40px auto;
-    color: white;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    position: relative;
-    .black {
+main {
+    .board {
+        padding: 30px;
+        width: 90%;
+        height: 50%;
         background-color: black;
-        color: black;
-    }
-    .material-icons {
-        font-size: 1.3rem;
+        margin: 40px auto;
+        color: white;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
 
-        // &:hover {
-        //     cursor: pointer;
-        // }
-    }
-    .seats-row {
-        margin: auto;
+        // .board {
+        //     width: 90%;
+        //     height: 50%;
+        //     background-color: black;
+        //     margin: 40px auto;
+        //     color: white;
+        //     display: flex;
+        //     flex-wrap: wrap;
+        //     flex-direction: row-reverse;
+        //     position: relative;
+        .black {
+            background-color: black;
+            color: black;
+        }
+        .material-icons {
+            font-size: 1.3rem;
 
-        //    .seat-col {
-        //     span:not(.black):hover {
-        //         cursor: pointer;
-        //     }
-        //    }
-        .seat-col {
-            span:not(.black) span:hover {
+            // &:hover {
+            //     cursor: pointer;
+            // }
+        }
+        .seats-row {
+            margin: auto;
+
+            //    .seat-col {
+            //     span:not(.black):hover {
+            //         cursor: pointer;
+            //     }
+            //    }
+            .seat-col {
+                span:not(.black) span:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .seats-group {
+            width: 80%;
+        }
+
+        .seat-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkout-btn {
+            margin-top: 10px;
+            width: 60%;
+            background-color: cornflowerblue;
+            border-radius: 3px;
+            border: 0px;
+            padding: 5px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row-reverse;
+            .black {
+                background-color: black;
+                color: black;
+            }
+            .material-icons {
+                font-size: 1.3rem;
+            }
+            .seats-row {
+                margin: auto;
+            }
+
+            &:hover {
                 cursor: pointer;
             }
         }
-    }
+        // }
 
-    .seats-group {
-        width: 80%;
+        //       .black{
+        //          color: black;
+        //       }
+        //       .seats-row{
+        //          margin: auto;
+        //       }
+        //       .material-icons{
+        //          font-size: 1.3rem;
+        //       }
+        //       .seats-group {
+        //             width: 80%;
+        //       }
     }
-
     .confirm-popup {
         position: absolute;
         top: 50px;
@@ -75,38 +134,27 @@
             }
         }
     }
-
-    .seat-details {
+    .info {
+        margin: 0 auto;
+        background-color: rgb(187, 187, 187);
+        width: 600px;
+        height: 60px;
         display: flex;
-        flex-direction: column;
-        gap: 10px;
+        justify-content: space-around;
+        font-size: 1.4rem;
+        & > * {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        & .available {
+            color: #fff;
+        }
     }
-
-    .checkout-btn {
-        margin-top: 10px;
-        width: 60%;
-        background-color: cornflowerblue;
-        border-radius: 3px;
-        border: 0px;
-        padding: 5px;
-        font-weight: bold;
-        color: white;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row-reverse;
-        .black {
-            background-color: black;
-            color: black;
-        }
-        .material-icons {
-            font-size: 1.3rem;
-        }
-        .seats-row {
-            margin: auto;
-        }
-
-        &:hover {
-            cursor: pointer;
-        }
+    .select {
+        color: rgb(230, 77, 77);
+    }
+    .unAvailable {
+        color: rgb(92, 92, 92);
     }
 }
