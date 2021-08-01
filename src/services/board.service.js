@@ -26,6 +26,7 @@ function query() {
             status: 1,
             x: j,
             y: i,
+            price: '15$'
          });
       }
       board.push(sitRow);

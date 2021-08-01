@@ -76,23 +76,33 @@ export default {
     this.board = boardService.query();
   },
   methods: {
-    close() {
-      this.currSeat = null;
+    async close() {
+      try {
+        this.currSeat.status = 1;
+        await boardService.save(this.board);
+        this.currSeat = null;
+      } catch (err) {
+        console.log("Error:", err);
+      }
     },
     setStauts(seat) {
       this.board.forEach((sitsRow) => {
-        sitsRow.forEach((sit) => {
-          if (sit.status === 3) sit.status = 1;
+        sitsRow.forEach((currSeat) => {
+          if (currSeat.status === 3) currSeat.status = 1;
         });
       });
       if (seat.status !== 1) return;
-      console.log("setPopup()", seat);
       this.currSeat = seat;
       seat.status = 3;
     },
-    order(seat) {
-      seat.status = 2;
-      boardService.save(this.board);
+    async order(seat) {
+      try {
+        seat.status = 2;
+        await boardService.save(this.board);
+        this.currSeat = null;
+      } catch (err) {
+        console.log("Had a problem ordering seat", err);
+      }
     },
   },
 };
