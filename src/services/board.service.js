@@ -17,7 +17,7 @@ function query() {
    for (var i = 0; i < 28; i++) {
       const sitRow = [];
       for (var j = 0; j < 9; j++) {
-         if (i === 7 || i === 20) {
+         if (i === 7 || i === 20 || (j > 6 && i > 7 && i < 20 )) {
             sitRow.push(_emptySit(i, j));
             continue;
          }
