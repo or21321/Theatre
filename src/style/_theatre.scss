@@ -1,13 +1,98 @@
-@import '@/style/_base';
+@import "@/style/_base";
 
-
-.theatre {
-    width: 85%;
-    height: 80%;
+.board {
+    width: 90%;
+    height: 50%;
     background-color: black;
     margin: 40px auto;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    position: relative;
+    .black {
+        background-color: black;
+        color: black;
+    }
+    .material-icons {
+        font-size: 1.3rem;
 
-.seats-group {
-    width: 80%;
-}
+        // &:hover {
+        //     cursor: pointer;
+        // }
+    }
+    .seats-row {
+        margin: auto;
+
+        //    .seat-col {
+        //     span:not(.black):hover {
+        //         cursor: pointer;
+        //     }
+        //    }
+        .seat-col {
+            span:not(.black) span:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .seats-group {
+        width: 80%;
+    }
+
+    .confirm-popup {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 200px;
+        border-radius: 3px;
+        background-color: blanchedalmond;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        color: black;
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .close-btn {
+            // align-self: flex-end;
+            padding: 5px;
+            // margin: 2px 2px 2px 5px;
+            margin: 2px 0 2px 2px;
+            border-radius: 3px;
+            &:hover {
+                cursor: pointer;
+                background-color: rgba(222, 184, 135, 0.815);
+                color: #ffffff;
+            }
+        }
+    }
+
+    .seat-details {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .checkout-btn {
+        margin-top: 10px;
+        width: 60%;
+        background-color: cornflowerblue;
+        border-radius: 3px;
+        border: 0px;
+        padding: 5px;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
