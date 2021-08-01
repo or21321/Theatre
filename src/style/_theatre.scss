@@ -90,6 +90,20 @@
         border: 0px;
         padding: 5px;
         font-weight: bold;
+        color: white;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        .black {
+            background-color: black;
+            color: black;
+        }
+        .material-icons {
+            font-size: 1.3rem;
+        }
+        .seats-row {
+            margin: auto;
+        }
 
         &:hover {
             cursor: pointer;
