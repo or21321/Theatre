@@ -1,27 +1,50 @@
 @import '@/style/_base';
 
-
-.board {
-    width: 90%;
-    height: 50%;
-    background-color: black;
-    margin: 40px auto;
-    color:white;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    .black{
-       background-color: black;
-       color: black;
-    }
-    .material-icons{
-       font-size: 1.3rem;
-    }
-    .seats-row{
-       margin: auto;
-    }
-
-.seats-group {
-    width: 80%;
-}
+main{
+   .board {
+      padding: 30px;
+      width: 90%;
+      height: 50%;
+      background-color: black;
+      margin: 40px auto;
+      color:white;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row-reverse;
+      .black{
+         color: black;
+      }
+      .seats-row{
+         margin: auto;
+      } 
+      .material-icons{
+         font-size: 1.3rem;
+      }
+      .seats-group {
+            width: 80%;
+      }
+   }
+   .info{
+      margin: 0 auto;
+      background-color: rgb(187, 187, 187);
+      width: 600px;
+      height: 60px;
+      display: flex;
+      justify-content: space-around;
+      font-size: 1.4rem;
+      & >*{
+         display: flex;
+         align-items: center;
+         gap:5px;
+      }
+      & .available{
+         color: #fff;
+      }
+   }
+   .select{
+     color: rgb(230, 77, 77);
+   } 
+   .unAvailable{
+     color: rgb(92, 92, 92);
+  }
 }

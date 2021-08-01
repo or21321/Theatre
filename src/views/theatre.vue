@@ -1,62 +1,75 @@
 <template>
-  <div class="board">
-    <ul class="seats-row" v-for="(seatsRow,idx) in board" :key="idx"> 
-      <li class="seat-col" v-for="seatCol in seatsRow" :key="seatCol.id">
-         <!-- <span v-if="seatCol.status === 4"><span class="material-icons">event_seat</span></span> -->
-         <span :class="{'black' : (seatCol.status === 4)}">
-            <span class="material-icons">event_seat</span></span>
-      </li>
-    </ul>
-  </div>
+  <main>
+    <div class="board">
+      <ul class="seats-row" v-for="(seatsRow, idx) in board" :key="idx">
+        <li
+          class="seat-col"
+          v-for="seatCol in seatsRow"
+          :key="seatCol.id"
+          @click="setStauts(seatCol)"
+        >
+          <span
+            :class="{
+              black: seatCol.status === 4,
+              select: seatCol.status === 3,
+              unAvailable: seatCol.status === 2,
+            }"
+          >
+            <span class="material-icons">event_seat</span></span
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="info">
+      <section class="available-seat">
+        <span class="available"> <span class="material-icons">event_seat</span></span>
+        <span>Available seat</span>
+      </section>
+      <section class="reserved-seat">
+        <span class="unAvailable">
+          <span class="material-icons">event_seat</span></span
+        >
+        <span>Reserved seat</span>
+      </section>
+      <section class="select-seat">
+        <span class="select">
+          <span class="material-icons">event_seat</span></span
+        >
+        <span>Select seat</span>
+      </section>
+    </div>
+  </main>
 </template>
 
 <script>
 // @ is an alias to /src
-import {utilService} from '@/services/util.service.js'
+import { boardService } from "@/services/board.service.js";
 
 export default {
-  name: 'theatre',
-  components: {
+  name: "theatre",
+  components: {},
+  data() {
+    return {
+      board: null,
+    };
   },
-data() {
-return {
-  board:null,
-}
-},
-created(){
-   this.board = this.setBoard();
-},
-methods:{
-   setBoard(){
-      // const sitRows = [];
-      const sitCols = 9;
-      const board = [];
-      for(var i = 0; i < 28; i++){
-         const sitRow = [];
-         for(var j = 0; j < sitCols; j++){
-            if(i === 7 || i === 20){
-               sitRow.push(this.emptySit(i,j));
-              continue;
-            }
-            sitRow.push({
-               id: utilService.makeId(),
-               status:1,
-               x:j,
-               y:i,
-            })
-         }
-         board.push(sitRow);
-      }
-      return board;
-   },
-   emptySit(i,j){
-         return {
-            id: utilService.makeId(),
-            status:4,
-            x:j,
-            y:i,
-         }
-      }      
-},
-}
+  created() {
+    this.board = boardService.query();
+  },
+  methods: {
+    setStauts(seat) {
+      this.board.forEach((sitsRow) => {
+        sitsRow.forEach((sit) => {
+          if (sit.status === 3) sit.status = 1;
+        });
+      });
+      if (seat.status !== 1) return;
+      seat.status = 3;
+    },
+  },
+  order(seat){
+    seat.status = 2;
+    boardService.save(this.board);
+  }
+};
 </script>
