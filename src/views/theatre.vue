@@ -19,9 +19,27 @@
         </li>
       </ul>
     </div>
+
+    <div class="confirm-popup" v-if="currSeat">
+      <div class="header">
+        <h3>Confirm selection</h3>
+        <span class="material-icons close-btn" @click="close">close</span>
+      </div>
+
+      <div class="seat-details">
+        <span>Row: {{ currSeat.x }}</span>
+        <span>Seat: {{ currSeat.y }}</span>
+        <span>Price: {{ currSeat.price }}</span>
+      </div>
+
+      <button class="checkout-btn" @click="order(currSeat)">Order</button>
+    </div>
+
     <div class="info">
       <section class="available-seat">
-        <span class="available"> <span class="material-icons">event_seat</span></span>
+        <span class="available">
+          <span class="material-icons">event_seat</span></span
+        >
         <span>Available seat</span>
       </section>
       <section class="reserved-seat">
@@ -49,12 +67,16 @@ export default {
   data() {
     return {
       board: null,
+      currSeat: null,
     };
   },
   created() {
     this.board = boardService.query();
   },
   methods: {
+    close() {
+      this.currSeat = null;
+    },
     setStauts(seat) {
       this.board.forEach((sitsRow) => {
         sitsRow.forEach((sit) => {
@@ -62,12 +84,14 @@ export default {
         });
       });
       if (seat.status !== 1) return;
+      console.log("setPopup()", seat);
+      this.currSeat = seat;
       seat.status = 3;
     },
+    order(seat) {
+      seat.status = 2;
+      boardService.save(this.board);
+    },
   },
-  order(seat){
-    seat.status = 2;
-    boardService.save(this.board);
-  }
 };
 </script>
