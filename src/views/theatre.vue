@@ -15,10 +15,41 @@ export default {
   },
 data() {
 return {
-  // seatsGroups: [
-  //   [x:]
-  // ],
+  board:null,
 }
+},
+created(){
+   this.board = this.setBoard();
+},
+methods:{
+   setBoard(){
+      const sitRows = 28;
+      const board = [];
+      for(var i = 0; i < sitRows.length-1; i++){
+         const sitRow = sitRows[i];
+         for(var j = 0; j < sitRow.length-1; j++){
+            if(j === 8 || j === 21){
+               sitRows[i][j] = this.emptySit(i,j);
+              continue;
+            }
+            sitRows[i][j] = {
+               id:'11',
+               status:1,
+               x:j,
+               y:i
+            }
+         }
+         board.push(sitRows[i]);
+      }
+   },
+   emptySit(i,j){
+         return {
+            id:'11',
+            status:4,
+            x:j,
+            y:i
+         }
+      }      
 },
 }
 </script>
