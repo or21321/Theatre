@@ -6,8 +6,7 @@
           class="seat-col"
           v-for="seatCol in seatsRow"
           :key="seatCol.id"
-          @click="setStauts(seatCol)"
-        >
+          @click="setStauts(seatCol)">
           <span
             :class="{
               black: seatCol.status === 4,
@@ -33,8 +32,7 @@
       </section>
       <section class="select-seat">
         <span class="select">
-          <span class="material-icons">event_seat</span></span
-        >
+          <span class="material-icons">event_seat</span></span>
         <span>Select seat</span>
       </section>
     </div>
