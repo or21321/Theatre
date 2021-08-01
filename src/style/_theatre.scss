@@ -1,11 +1,25 @@
 @import '@/style/_base';
 
 
-.theatre {
-    width: 85%;
-    height: 80%;
+.board {
+    width: 90%;
+    height: 50%;
     background-color: black;
     margin: 40px auto;
+    color:white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    .black{
+       background-color: black;
+       color: black;
+    }
+    .material-icons{
+       font-size: 1.3rem;
+    }
+    .seats-row{
+       margin: auto;
+    }
 
 .seats-group {
     width: 80%;

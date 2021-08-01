@@ -1,14 +1,18 @@
 <template>
-  <div class="theatre">
-    <ul class="seats-group" v-for="seatsGroup in seatsGroups.seats" :key="seatsGroup.id">
-      <li class="seat-preview"></li>
+  <div class="board">
+    <ul class="seats-row" v-for="(seatsRow,idx) in board" :key="idx"> 
+      <li class="seat-col" v-for="seatCol in seatsRow" :key="seatCol.id">
+         <!-- <span v-if="seatCol.status === 4"><span class="material-icons">event_seat</span></span> -->
+         <span :class="{'black' : (seatCol.status === 4)}">
+            <span class="material-icons">event_seat</span></span>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import {utilService} from '@/services/util.service'
+import {utilService} from '@/services/util.service.js'
 
 export default {
   name: 'theatre',
@@ -24,31 +28,33 @@ created(){
 },
 methods:{
    setBoard(){
-      const sitRows = 28;
+      // const sitRows = [];
+      const sitCols = 9;
       const board = [];
-      for(var i = 0; i < sitRows.length-1; i++){
-         const sitRow = sitRows[i];
-         for(var j = 0; j < sitRow.length-1; j++){
-            if(j === 8 || j === 21){
-               sitRows[i][j] = this.emptySit(i,j);
+      for(var i = 0; i < 28; i++){
+         const sitRow = [];
+         for(var j = 0; j < sitCols; j++){
+            if(i === 7 || i === 20){
+               sitRow.push(this.emptySit(i,j));
               continue;
             }
-            sitRows[i][j] = {
-               id:'11',
+            sitRow.push({
+               id: utilService.makeId(),
                status:1,
                x:j,
-               y:i
-            }
+               y:i,
+            })
          }
-         board.push(sitRows[i]);
+         board.push(sitRow);
       }
+      return board;
    },
    emptySit(i,j){
          return {
-            id:'11',
+            id: utilService.makeId(),
             status:4,
             x:j,
-            y:i
+            y:i,
          }
       }      
 },
